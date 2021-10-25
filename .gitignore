@@ -1,4 +1,5 @@
 input/*
+__`git commit.command
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
