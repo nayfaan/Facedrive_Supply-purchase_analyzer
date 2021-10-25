@@ -87,6 +87,13 @@ def debug(r):
         print('oid: ', r[x].id)
         print(r[x].prod)
         print()
+        
+def filter_high(rec, limit):
+    filtered_rec = {}
+    for x in rec:
+        if rec[x]['price'] <= limit:
+            filtered_rec.update({x:rec[x]})
+    return filtered_rec
 
 def main():
     input_stream = json.loads(open(_input, 'r').read())
@@ -96,13 +103,18 @@ def main():
     for line in input_stream:
         oid = line['order_id'] 
         if not oid in purchase_record:
-            purchase_record.update({oid: order(line['order_id'], line['order_date'], line['customer_id'], line['customer_tag'], line['org_product_fee_no_tax'])})
+            purchase_record.update({oid: {'date': line['order_date'], 
+                                          'uid': line['customer_id'], 
+                                          'u_name': line['customer_tag'], 
+                                          'price': line['org_product_fee_no_tax'],
+                                          'prod': set()
+                                          }})
         
-        purchase_record[oid].prod.add(oid)
-        print(purchase_record[oid].prod)
-        #purchase_record[oid].add_prod(SKU(line['product_id'], line['product'], line['qty']))
-    #print(purchase_record)
-    #debug(purchase_record)
+        purchase_record[oid]['prod'].add(SKU(line['product_id'], line['product'], line['qty']))
+    
+    
+    pr_200 = filter_high(purchase_record, 200)
+
         
         
 
