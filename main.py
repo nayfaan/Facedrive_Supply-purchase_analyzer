@@ -70,7 +70,7 @@ class SKU:
     def SKU2dict(self):
         thisDict = {}
         thisDict.update({'pid': self.id,
-                         #'p_name': self.name,
+                         'p_name': self.name,
                          'qty': self.qty
                          })
         return thisDict
@@ -88,12 +88,16 @@ def debug(r):
         print(r[x].prod)
         print()
         
-def filter_high(rec, limit):
+def filter_high(rec, low_limit = 0, high_limit = 2147483647):
     filtered_rec = {}
     for x in rec:
-        if rec[x]['price'] <= limit:
+        if rec[x]['price'] <= high_limit and rec[x]['price'] >= low_limit:
             filtered_rec.update({x:rec[x]})
     return filtered_rec
+
+def print_date(date):
+    s = str(date.year) + '-' + str(date.month) + '-' + str(date.day) + ' ' + str(date.hour) 
+    return s
 
 def main():
     input_stream = json.loads(open(_input, 'r').read())
@@ -113,7 +117,10 @@ def main():
         purchase_record[oid]['prod'].add(SKU(line['product_id'], line['product'], line['qty']))
     
     
-    pr_200 = filter_high(purchase_record, 200)
+    pr_35 = filter_high(purchase_record, 0, 35)
+    
+    for x in pr_35:
+        print (x, '"'+pr_35[x]['date']+'"', pr_35[x]['uid'], '"'+pr_35[x]['u_name']+'"', pr_35[x]['price'], '"'+str(pr_35[x]['prod'])+'"', sep=', ')
 
         
         
