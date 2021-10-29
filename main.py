@@ -2,7 +2,8 @@ import json
 import re
 import datetime
 
-_input = r"input/purchase_record.json"
+#input generated from knime
+_input = r"input/purchase_record0.json"
 
 def read_date(date_string):
     date = re.search('^\S+', date_string)[0]
@@ -117,10 +118,10 @@ def main():
         purchase_record[oid]['prod'].add(SKU(line['product_id'], line['product'], line['qty']))
     
     
-    pr_35 = filter_high(purchase_record, 0, 35)
+    pr_n = filter_high(purchase_record, 0, 400)
     
-    for x in pr_35:
-        print (x, '"'+pr_35[x]['date']+'"', pr_35[x]['uid'], '"'+pr_35[x]['u_name']+'"', pr_35[x]['price'], '"'+str(pr_35[x]['prod'])+'"', sep=', ')
+    for x in pr_n:
+        print (x, '"'+pr_n[x]['date']+'"', pr_n[x]['uid'], '"'+pr_n[x]['u_name']+'"', pr_n[x]['price'], '"'+str(pr_n[x]['prod'])+'"', sep=', ')
 
         
         
