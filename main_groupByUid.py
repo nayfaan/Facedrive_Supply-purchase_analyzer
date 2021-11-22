@@ -47,11 +47,19 @@ def cleanName(pr):
         pr[x]["u_name"] = pr[x]["u_name"].replace("\n", " ")
     return pr
 
+def productNameOnly(prod):
+    s = ""
+    delimiter = "..."
+    for x in prod:
+        s += x.name
+        s += delimiter
+    return s[:len(delimiter)*-1]
 
 def print_csv(pr):
-    print("uid,username,price,product")
+    seperator = ";"
+    print("uid","username","price","product", sep=seperator)
     for x in pr:
-        print(x, pr[x]["u_name"], pr[x]["price"], pr[x]["prod"], sep=";")
+        print(x, pr[x]["u_name"], pr[x]["price"], productNameOnly(pr[x]["prod"]), sep=seperator)
 
 
 def main_groupByUid(low_limit=0, high_limit=2147483647):
