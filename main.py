@@ -100,7 +100,11 @@ def print_date(date):
     s = str(date.year) + '-' + str(date.month) + '-' + str(date.day) + ' ' + str(date.hour) 
     return s
 
-def main():
+def print_pr(pr):
+    for x in pr:
+        print (x, '"'+pr[x]['date']+'"', pr[x]['uid'], '"'+pr[x]['u_name']+'"', pr[x]['price'], '"'+str(pr[x]['prod'])+'"', sep=', ')
+
+def main(low_limit = 0, high_limit = 2147483647, print_result = True):
     input_stream = json.loads(open(_input, 'r').read())
     
     purchase_record = {}
@@ -118,13 +122,12 @@ def main():
         purchase_record[oid]['prod'].add(SKU(line['product_id'], line['product'], line['qty']))
     
     
-    pr_n = filter_high(purchase_record, 0, 400)
+    pr_n = filter_high(purchase_record, low_limit, high_limit)
     
-    for x in pr_n:
-        print (x, '"'+pr_n[x]['date']+'"', pr_n[x]['uid'], '"'+pr_n[x]['u_name']+'"', pr_n[x]['price'], '"'+str(pr_n[x]['prod'])+'"', sep=', ')
-
+    if print_result:
+        print_pr(pr_n)
         
-        
+    return pr_n
 
 if __name__ == "__main__":
     main()
