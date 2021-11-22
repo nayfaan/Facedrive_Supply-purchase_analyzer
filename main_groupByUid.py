@@ -44,7 +44,7 @@ def groupByUid(pr):
 
 def cleanName(pr):
     for x in pr:
-        pr[x]["u_name"] = pr[x]["u_name"].replace("\n", " ")
+        pr[x]["u_name"] = pr[x]["u_name"].replace("\n", " ").replace(",", "")
         for y in pr[x]["prod"]:
             y.name = y.name.replace(",", "")
     return pr
