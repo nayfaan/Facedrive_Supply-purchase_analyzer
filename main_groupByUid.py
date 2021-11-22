@@ -44,16 +44,14 @@ def groupByUid(pr):
 
 def cleanName(pr):
     for x in pr:
-        pr[x]["u_name"] = pr[x]["u_name"].replace("\n", " ").replace(",", "")
-        for y in pr[x]["prod"]:
-            y.name = y.name.replace(",", "")
+        pr[x]["u_name"] = pr[x]["u_name"].replace("\n", " ")
     return pr
 
 
 def print_csv(pr):
     print("uid,username,price,product")
     for x in pr:
-        print(x, pr[x]["u_name"], pr[x]["price"], pr[x]["prod"], sep=",")
+        print(x, pr[x]["u_name"], pr[x]["price"], pr[x]["prod"], sep=";")
 
 
 def main_groupByUid(low_limit=0, high_limit=2147483647):
