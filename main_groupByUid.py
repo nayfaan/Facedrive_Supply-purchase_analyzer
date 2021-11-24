@@ -42,9 +42,10 @@ def groupByUid(pr):
     return pr_uid
 
 
-def cleanName(pr):
+def cleanData(pr):
     for x in pr:
         pr[x]["u_name"] = pr[x]["u_name"].replace("\n", " ")
+        pr[x]["price"] = round(pr[x]["price"],2)
     return pr
 
 def productNameOnly(prod):
@@ -67,7 +68,7 @@ def main_groupByUid(low_limit=0, high_limit=2147483647):
 
     pr_uid = groupByUid(pr_n)
 
-    pr_uid = cleanName(pr_uid)
+    pr_uid = cleanData(pr_uid)
 
     print_csv(pr_uid)
 
